@@ -3,4 +3,7 @@
 pytest
 mypy
 
+pytest-asyncio
+pytest-mock
+
 types-requests

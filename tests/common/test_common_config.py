@@ -1,6 +1,6 @@
 import pytest
 
-from src.common.config import Config, SMTPConfig
+from common.config import Config, SMTPConfig
 
 
 def test_config_init_with_initial_values():
