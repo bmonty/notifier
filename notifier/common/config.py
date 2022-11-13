@@ -54,23 +54,22 @@ class SMTPConfig(Config):
 
     @property
     def port(self) -> int:
-        """Port to listen for SMTP connections."""
+        """Port to listen for SMTP connections.  Defaults to `20025`."""
         try:
             # the port is returned from the environment and
             # stored in the cache as a string
             return int(self.get_property("SMTP_PORT"))
 
         except RuntimeError:
-            self.cached_config["SMTP_PORT"] = 25
-            return 25
+            self.cached_config["SMTP_PORT"] = 20025
+            return 20025
 
     @property
-    def address(self) -> str:
-        """Address to listen on.  Defaults to localhost
-        (127.0.0.1)."""
+    def hostname(self) -> str:
+        """Server's hostname.  Defaults to `localhost`."""
         try:
-            return self.get_property("SMTP_ADDRESS")
+            return self.get_property("SMTP_HOSTNAME")
 
         except RuntimeError:
-            self.cached_config["SMTP_ADDRESS"] = "127.0.0.1"
-            return "127.0.0.1"
+            self.cached_config["SMTP_HOSTNAME"] = "localhost"
+            return "localhost"

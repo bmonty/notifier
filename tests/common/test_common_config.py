@@ -74,8 +74,8 @@ def test_smtp_config_default_port(monkeypatch) -> None:
 
     config = SMTPConfig()
 
-    assert config.port == 25
-    assert config.cached_config["SMTP_PORT"] == 25
+    assert config.port == 20025
+    assert config.cached_config["SMTP_PORT"] == 20025
 
 
 def test_smtp_config_custom_port(monkeypatch) -> None:
@@ -92,15 +92,15 @@ def test_smtp_config_default_address() -> None:
     """Test a `SMTPConfig` object can return the default listen address."""
     config = SMTPConfig()
 
-    assert config.address == "127.0.0.1"
-    assert config.cached_config["SMTP_ADDRESS"] == "127.0.0.1"
+    assert config.hostname == "localhost"
+    assert config.cached_config["SMTP_HOSTNAME"] == "localhost"
 
 
 def test_smtp_config_custom_address(monkeypatch) -> None:
     """Test a `SMTPConfig` object can return a listen address from the environment."""
-    monkeypatch.setenv("NOTIFIER_SMTP_ADDRESS", "0.0.0.0")
+    monkeypatch.setenv("NOTIFIER_SMTP_HOSTNAME", "0.0.0.0")
 
     config = SMTPConfig()
 
-    assert config.address == "0.0.0.0"
-    assert config.cached_config["SMTP_ADDRESS"] == "0.0.0.0"
+    assert config.hostname == "0.0.0.0"
+    assert config.cached_config["SMTP_HOSTNAME"] == "0.0.0.0"
