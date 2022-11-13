@@ -7,8 +7,7 @@ from enum import Enum
 from typing import List
 
 from common.config import SMTPConfig
-import slack.messages
-
+from messaging.slack import SlackMessages
 
 log = logging.getLogger(__name__)
 
@@ -47,7 +46,8 @@ class NotifierHandler:
         log.debug(f"Subject: {message['subject']}")
         log.debug(f"Body: {message['body']}")
 
-        slack.messages.send_to_slack(self.config, message)
+        slack = SlackMessages(self.config)
+        slack.send_message(message)
 
         return Responses.message_accepted.value
 
@@ -57,9 +57,9 @@ class NotifierHandler:
             log.debug("Mail message has no content.")
             raise ValueError
 
-        message = email.message_from_bytes(
-            envelope.original_content, policy=default)
+        message = email.message_from_bytes(envelope.original_content, policy=default)
+        message_from = message.get("From")
         subject = message.get("Subject")
         body = message.get_content().strip()
 
-        return {'subject': subject, 'body': body}
+        return {'from': message_from, 'subject': subject, 'body': body}

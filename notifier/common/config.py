@@ -42,6 +42,14 @@ class Config(object):
     def slack_channel(self) -> str:
         return self.get_property("SLACK_CHANNEL")
 
+    @property
+    def slack_bot_token(self) -> str:
+        return self.get_property("SLACK_BOT_TOKEN")
+
+    @property
+    def slack_app_token(self) -> str:
+        return self.get_property("SLACK_APP_TOKEN")
+
 
 class SMTPConfig(Config):
     """Class for configuring the SMTP notifier."""

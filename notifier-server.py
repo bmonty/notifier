@@ -1,6 +1,8 @@
+import sys
 import logging
 import signal
 
+from messaging.slack import SlackMessages
 from common.config import SMTPConfig
 import smtp.server as smtp_server
 
@@ -18,6 +20,12 @@ def start_notifier():
     # load config
     config = SMTPConfig()
     
+    # create the singleton SlackMessages object and test the connection to Slack
+    slack = SlackMessages(config)
+    if not slack.test_connection():
+        log.fatal("Unable to connect to Slack with the provided tokens.")
+        sys.exit(1)
+
     # start servers
     controller = smtp_server.start_smtp_server(config)
 
