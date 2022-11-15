@@ -1,7 +1,0 @@
-{
-    "python.defaultInterpreterPath": "/Users/bmontgom/Envs/notifier/bin/python",
-    "python.analysis.extraPaths": [
-        "${workspaceFolder}/notifier"
-    ],
-    "python.envFile": "${workspaceFolder}/.env"
-}
